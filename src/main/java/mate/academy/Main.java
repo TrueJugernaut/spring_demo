@@ -26,6 +26,6 @@ public class Main {
         ((ConfigurableApplicationContext)context).close();
 
         Developer developer = new Developer();
-        developer.builder().name("Yehor").age(17).salary(1020).build();
+        developer.builder().name("Yehor").age(17).salary(1020.0).build();
     }
 }

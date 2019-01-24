@@ -1,6 +1,7 @@
-package mate.academy.service;
+package mate.academy.service.Impl;
 
 
+import mate.academy.service.UserService;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
