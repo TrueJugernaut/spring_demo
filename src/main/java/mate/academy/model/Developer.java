@@ -1,5 +1,6 @@
 package mate.academy.model;
 
+<<<<<<< Updated upstream
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,4 +28,7 @@ public class Developer {
     private int age;
     private double salary;
 
+=======
+public class Developer {
+>>>>>>> Stashed changes
 }
