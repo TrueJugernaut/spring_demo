@@ -22,26 +22,15 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "developerId")
+@ToString(exclude = "companyId")
 @Entity
-@Table(name = "developers")
-public class Developer {
+@Table(name = "companies")
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long developerId;
-    private String name;
-    private Integer age;
-    private Double salary;
+    private Integer companyId;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "developers_projects",
-            joinColumns = { @JoinColumn(name = "pprojectId") },
-            inverseJoinColumns = { @JoinColumn(name = "developerId") })
-    private Set<Project> projects;
+    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -51,5 +40,15 @@ public class Developer {
     @JoinTable(name = "developers_companies",
             joinColumns = { @JoinColumn(name = "companyId") },
             inverseJoinColumns = { @JoinColumn(name = "developerId") })
+    private Set<Developer> developers;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "projects_companies",
+            joinColumns = { @JoinColumn(name = "companyId") },
+            inverseJoinColumns = { @JoinColumn(name = "projectId") })
     private Set<Company> companies;
 }

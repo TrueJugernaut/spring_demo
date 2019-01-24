@@ -9,9 +9,6 @@ import lombok.ToString;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,16 +19,20 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "developerId")
+@ToString(exclude = "projectId")
 @Entity
-@Table(name = "developers")
-public class Developer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long developerId;
-    private String name;
-    private Integer age;
-    private Double salary;
+@Table(name = "projects")
+public class Project {
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "projects_companies",
+            joinColumns = { @JoinColumn(name = "companyId") },
+            inverseJoinColumns = { @JoinColumn(name = "projectId") })
+    private Set<Company> companies;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -39,17 +40,7 @@ public class Developer {
                     CascadeType.MERGE
             })
     @JoinTable(name = "developers_projects",
-            joinColumns = { @JoinColumn(name = "pprojectId") },
+            joinColumns = { @JoinColumn(name = "projectId") },
             inverseJoinColumns = { @JoinColumn(name = "developerId") })
-    private Set<Project> projects;
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "developers_companies",
-            joinColumns = { @JoinColumn(name = "companyId") },
-            inverseJoinColumns = { @JoinColumn(name = "developerId") })
-    private Set<Company> companies;
+    private Set<Developer> developers;
 }
