@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("mate.academy")
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:ыdatabase.properties")
 public class Config {
     public static final String DRIVER = "driver";
     public static final String PASSWORD = "password";

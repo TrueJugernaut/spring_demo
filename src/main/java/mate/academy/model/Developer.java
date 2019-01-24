@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class Developer {
                     CascadeType.MERGE
             })
     @JoinTable(name = "developers_projects",
-            joinColumns = { @JoinColumn(name = "pprojectId") },
+            joinColumns = { @JoinColumn(name = "projectId") },
             inverseJoinColumns = { @JoinColumn(name = "developerId") })
     private Set<Project> projects;
 
@@ -52,4 +53,8 @@ public class Developer {
             joinColumns = { @JoinColumn(name = "companyId") },
             inverseJoinColumns = { @JoinColumn(name = "developerId") })
     private Set<Company> companies;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "developerId", nullable = false)
+    private Skill skill;
 }
