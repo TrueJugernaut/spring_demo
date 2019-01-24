@@ -2,6 +2,7 @@ package mate.academy;
 
 import mate.academy.config.Config;
 import mate.academy.dao.PersonDao;
+import mate.academy.model.Developer;
 import mate.academy.model.Person;
 import mate.academy.service.UserService;
 import org.springframework.context.ApplicationContext;
@@ -23,5 +24,8 @@ public class Main {
         System.out.println(personDao.getById(2).toString());
         System.out.println(personId.toString());
         ((ConfigurableApplicationContext)context).close();
+
+        Developer developer = new Developer();
+        developer.builder().name("Yehor").age(17).salary(1020).build();
     }
 }
